@@ -1,0 +1,17 @@
+// Google Protocol Buffers Version 3.
+syntax = "proto3";
+
+// Package name.
+package ServerData;
+
+message Msg_InVehicleData
+{
+	uint32 operationMode = 1;  // 0 : off-line    1: on-line
+	uint32 vehicleType = 2;	//0: 아반떼, 1: 소나타
+	uint32 control = 3; // 0 :제어 Off   1: 제어 On
+	uint32 u8_Brake = 4;  // 0 : off    1 : on
+	uint32 u8_Gear = 5;  // 0 : n단 1: d단  2: r단 3: p단
+	uint32 u8_TurnSignal = 6;  // 0 : off 1: 좌측 2: 우측
+	double f64_Speed_kph = 7;	//차량 속도(kph)
+	double f64_SteeringAngle_deg = 8;	//핸들 각도 (-180 ~ 180)
+}
