@@ -10,7 +10,7 @@ export class RedisService {
     return await this.redis.set(data.operationMode, JSON.stringify(data));
   }
 
-  private isCache(data) {
+  isCache(data) {
     const redisKey = data.operationMode;
     const getRedis = this.redis.get(redisKey);
     if (getRedis) {
