@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { RedisService } from 'nestjs-redis';
 import * as net from 'net';
 import { Root } from 'protobufjs';
 import { MsgInVehicleData } from '../proto/MSG_VehicleMonitoring';
@@ -8,10 +7,8 @@ import { MsgInVehicleData } from '../proto/MSG_VehicleMonitoring';
 export class GatewayService {
   private server: net.Server;
   private protobufRoot: Root;
-  private configService: ConfigService;
-  private redisService: RedisService;
 
-  constructor() {
+  constructor(private configService: ConfigService) {
     this.server = net
       .createServer((socket: net.Socket) => {
         socket.on('data', (data: Buffer) => {
