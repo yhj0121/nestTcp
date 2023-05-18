@@ -17,13 +17,15 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
+    "plugins": [
+      {
+        "name": "typescript-proto-plugin",
+        "path": "node_modules/ts-proto-gen/dist/index.js"
+      }
+    ],
     "paths": {
-      "@app/entity": [
-        "libs/entity/src"
-      ],
-      "@app/entity/*": [
-        "libs/entity/src/*"
-      ]
+      "@app/entity": ["libs/entity/src"],
+      "@app/entity/*": ["libs/entity/src/*"]
     }
   }
 }
