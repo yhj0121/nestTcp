@@ -1,7 +1,8 @@
 /* eslint-disable */
-import * as _m0 from "protobufjs/minimal";
+import * as _m0 from 'protobufjs/minimal';
 
-export const protobufPackage = "ServerData";
+//protoc --plugin=/Users/it_dev/Downloads/live_server_cache/node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=addNestjsRestParameter=true --ts_proto_out=/Users/it_dev/Downloads/live_server_cache/apps/gateway/proto --proto_path=/Users/it_dev/Downloads/live_server_cache/apps/gateway/proto   MSG_VehicleMonitoring.proto
+export const protobufPackage = 'ServerData';
 
 /** Google Protocol Buffers Version 3. */
 
@@ -38,7 +39,10 @@ function createBaseMsgInVehicleData(): MsgInVehicleData {
 }
 
 export const MsgInVehicleData = {
-  encode(message: MsgInVehicleData, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+  encode(
+    message: MsgInVehicleData,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
     if (message.operationMode !== 0) {
       writer.uint32(8).uint32(message.operationMode);
     }
@@ -67,7 +71,8 @@ export const MsgInVehicleData = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgInVehicleData {
-    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    const reader =
+      input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgInVehicleData();
     while (reader.pos < end) {
@@ -140,35 +145,52 @@ export const MsgInVehicleData = {
 
   fromJSON(object: any): MsgInVehicleData {
     return {
-      operationMode: isSet(object.operationMode) ? Number(object.operationMode) : 0,
+      operationMode: isSet(object.operationMode)
+        ? Number(object.operationMode)
+        : 0,
       vehicleType: isSet(object.vehicleType) ? Number(object.vehicleType) : 0,
       control: isSet(object.control) ? Number(object.control) : 0,
       u8Brake: isSet(object.u8Brake) ? Number(object.u8Brake) : 0,
       u8Gear: isSet(object.u8Gear) ? Number(object.u8Gear) : 0,
-      u8TurnSignal: isSet(object.u8TurnSignal) ? Number(object.u8TurnSignal) : 0,
+      u8TurnSignal: isSet(object.u8TurnSignal)
+        ? Number(object.u8TurnSignal)
+        : 0,
       f64SpeedKph: isSet(object.f64SpeedKph) ? Number(object.f64SpeedKph) : 0,
-      f64SteeringAngleDeg: isSet(object.f64SteeringAngleDeg) ? Number(object.f64SteeringAngleDeg) : 0,
+      f64SteeringAngleDeg: isSet(object.f64SteeringAngleDeg)
+        ? Number(object.f64SteeringAngleDeg)
+        : 0,
     };
   },
 
   toJSON(message: MsgInVehicleData): unknown {
     const obj: any = {};
-    message.operationMode !== undefined && (obj.operationMode = Math.round(message.operationMode));
-    message.vehicleType !== undefined && (obj.vehicleType = Math.round(message.vehicleType));
-    message.control !== undefined && (obj.control = Math.round(message.control));
-    message.u8Brake !== undefined && (obj.u8Brake = Math.round(message.u8Brake));
+    message.operationMode !== undefined &&
+      (obj.operationMode = Math.round(message.operationMode));
+    message.vehicleType !== undefined &&
+      (obj.vehicleType = Math.round(message.vehicleType));
+    message.control !== undefined &&
+      (obj.control = Math.round(message.control));
+    message.u8Brake !== undefined &&
+      (obj.u8Brake = Math.round(message.u8Brake));
     message.u8Gear !== undefined && (obj.u8Gear = Math.round(message.u8Gear));
-    message.u8TurnSignal !== undefined && (obj.u8TurnSignal = Math.round(message.u8TurnSignal));
-    message.f64SpeedKph !== undefined && (obj.f64SpeedKph = message.f64SpeedKph);
-    message.f64SteeringAngleDeg !== undefined && (obj.f64SteeringAngleDeg = message.f64SteeringAngleDeg);
+    message.u8TurnSignal !== undefined &&
+      (obj.u8TurnSignal = Math.round(message.u8TurnSignal));
+    message.f64SpeedKph !== undefined &&
+      (obj.f64SpeedKph = message.f64SpeedKph);
+    message.f64SteeringAngleDeg !== undefined &&
+      (obj.f64SteeringAngleDeg = message.f64SteeringAngleDeg);
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MsgInVehicleData>, I>>(base?: I): MsgInVehicleData {
+  create<I extends Exact<DeepPartial<MsgInVehicleData>, I>>(
+    base?: I,
+  ): MsgInVehicleData {
     return MsgInVehicleData.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<MsgInVehicleData>, I>>(object: I): MsgInVehicleData {
+  fromPartial<I extends Exact<DeepPartial<MsgInVehicleData>, I>>(
+    object: I,
+  ): MsgInVehicleData {
     const message = createBaseMsgInVehicleData();
     message.operationMode = object.operationMode ?? 0;
     message.vehicleType = object.vehicleType ?? 0;
@@ -182,16 +204,31 @@ export const MsgInVehicleData = {
   },
 };
 
-type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
+type Builtin =
+  | Date
+  | Function
+  | Uint8Array
+  | string
+  | number
+  | boolean
+  | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends Array<infer U>
+  ? Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U>
+  ? ReadonlyArray<DeepPartial<U>>
+  : T extends {}
+  ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
+export type Exact<P, I extends P> = P extends Builtin
+  ? P
+  : P & { [K in keyof P]: Exact<P[K], I[K]> } & {
+      [K in Exclude<keyof I, KeysOfUnion<P>>]: never;
+    };
 
 function isSet(value: any): boolean {
   return value !== null && value !== undefined;
