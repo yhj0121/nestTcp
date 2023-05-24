@@ -3,8 +3,8 @@ import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { RedisModule } from '@nestjs-modules/ioredis';
 
-import { GatewayService } from './gateway.service';
-import { RedisService } from './redis/redis.service';
+import { GatewayService } from './services/gateway.service';
+import { RedisService } from './services/redis.service';
 
 @Module({
   imports: [

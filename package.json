@@ -32,6 +32,7 @@
     "@nestjs/graphql": "^11.0.5",
     "@nestjs/microservices": "^9.4.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/schedule": "^2.2.2",
     "@protobuf-ts/plugin": "^2.9.0",
     "class-transformer": "^0.5.1",
     "google-protobuf": "^3.21.2",

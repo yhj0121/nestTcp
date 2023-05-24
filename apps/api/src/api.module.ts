@@ -6,6 +6,7 @@ import { VehicleResolver } from './resolvers/vehicle.resolver';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PubSub } from 'graphql-subscriptions';
+import { Resolvers } from './resolvers';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { PubSub } from 'graphql-subscriptions';
       installSubscriptionHandlers: true, // 웹소켓 사용 가능하게 해줌
       autoSchemaFile: __dirname + 'schema.gpl', //자동으로 스키마 파일 생성
       subscriptions: {
-        'graphql-ws': true,
+        // 'graphql-ws': true,
+        'subscriptions-transport-ws': true,
       },
       path: 'app/graphql',
       sortSchema: false,
@@ -43,6 +45,6 @@ import { PubSub } from 'graphql-subscriptions';
       isGlobal: true, // 전역적으로 사용할 수 있도록 설정합니다.
     }),
   ],
-  providers: [ApiService, VehicleResolver, PubSub],
+  providers: [ApiService, ...Resolvers, PubSub],
 })
 export class ApiModule {}
