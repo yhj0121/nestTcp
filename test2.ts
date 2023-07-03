@@ -2,7 +2,7 @@ import { MsgInVehicleData } from '/Users/it_dev/Downloads/live_server_cache/apps
 import * as net from 'net';
 
 //서버랑 연결
-const socket = net.connect({ port: 3001 });
+const socket = net.connect({ port: 3000 });
 socket.on('connect', function () {
   console.log('connected to server!');
 

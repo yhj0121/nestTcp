@@ -17,5 +17,6 @@ export class AuthService {
     if (!token) {
       throw new Error('token not valid'); //여기는 token 하고 다른데에 저장된 token 하고 비교하는 부분
     }
+    return this.userRepository.find({});
   }
 }

@@ -1,10 +1,5 @@
-// export const Services = [
-//   VehicleService,
-//   {
-//     provide: VehicleService.special_period,
-//     inject: [ConfigService],
-//     useFactory: async (configService: ConfigService) => {
-//       return configService.get('SPECIAL_PERIOD');
-//     },
-//   },
-// ];
+import { AuthService } from './auth.service';
+import { UserService } from './user.service';
+import { VehicleService } from './vehicle.service';
+
+export const Services = [AuthService, VehicleService, UserService];

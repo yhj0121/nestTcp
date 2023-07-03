@@ -1,11 +1,11 @@
 import { ConfigService } from '@nestjs/config';
 import { RedisService } from './redis.service';
 import { GatewayService } from './gateway.service';
-export const Services = [
+export const GQL_SERVICES = [
   GatewayService,
   RedisService,
   {
-    provide: GatewayService.portNUmber,
+    provide: GatewayService.SESSION_EXPIRED_IN_MINUTE,
     inject: [ConfigService],
     useFactory: async (configservice: ConfigService) => {
       return configservice.get<number>('port') as number;
@@ -14,7 +14,7 @@ export const Services = [
   {
     provide: RedisService.TIME_EXPIRE,
     inject: [ConfigService],
-    userFactory: async (configservice: ConfigService) => {
+    useFactory: async (configservice: ConfigService) => {
       return configservice.get('TIME_EXPIRE') as number;
     },
   },

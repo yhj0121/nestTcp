@@ -42,4 +42,12 @@ export class RedisService {
   async deleteSubCache() {
     return await this.redis.del();
   }
+
+  async getCacheKey(vehicleType?) {
+    if (vehicleType === undefined && vehicleType === null) {
+      return `InVehicleInfo:*`;
+    } else {
+      return `InVehicleInfo:${vehicleType}`;
+    }
+  }
 }

@@ -5,6 +5,7 @@ import { RedisModule } from '@nestjs-modules/ioredis';
 
 import { GatewayService } from './services/gateway.service';
 import { RedisService } from './services/redis.service';
+import { GQL_SERVICES } from './services';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { RedisService } from './services/redis.service';
       isGlobal: true, // 전역적으로 사용할 수 있도록 설정합니다.
     }),
   ],
-  providers: [GatewayService, RedisService],
+  providers: [...GQL_SERVICES],
+  exports: [GatewayModule],
 })
 export class GatewayModule {}

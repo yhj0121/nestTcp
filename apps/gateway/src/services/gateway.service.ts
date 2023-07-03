@@ -8,11 +8,12 @@ import { MsgInVehicleData } from '../../proto/MSG_VehicleMonitoring';
 export class GatewayService {
   private server: net.Server;
   private protobufRoot: Root;
-  static portNUmber = `${GatewayService.name}.PORT`;
+  static SESSION_EXPIRED_IN_MINUTE = `${GatewayService.name}).SESSION_EXPIRED_IN_MINUTE`;
+
   constructor(
     private configService: ConfigService,
     private redisService: RedisService,
-    @Inject(GatewayService.portNUmber)
+    @Inject(GatewayService.SESSION_EXPIRED_IN_MINUTE)
     private port: number,
   ) {
     this.server = net
@@ -31,7 +32,7 @@ export class GatewayService {
           console.log('socket end');
         });
       })
-      .listen(port, () => {
+      .listen(this.port, () => {
         console.log('server start');
       });
   }

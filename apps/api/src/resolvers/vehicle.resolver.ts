@@ -10,14 +10,10 @@ import { Inject, Module } from '@nestjs/common';
 
 @Resolver()
 export class VehicleResolver {
-  static special_period = `${VehicleResolver.name}).special_period`;
-
   constructor(
     private pubsub: PubSub,
     @InjectRedis() private readonly redis: Redis,
     private readonly redisService: RedisService,
-    @Inject(VehicleResolver.special_period)
-    private readonly special_period: number,
   ) {
     setInterval(async () => {
       const redisData: Vehicle = convertToVehicleType(
@@ -26,7 +22,7 @@ export class VehicleResolver {
       this.pubsub.publish('getVehicle', {
         getVehicle: redisData,
       });
-    }, this.special_period);
+    }, 5);
   }
 
   @Subscription(() => [Vehicle], {

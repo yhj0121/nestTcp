@@ -1,3 +1,4 @@
+import { AuthService } from './service/auth.service';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApiService } from './api.service';
@@ -6,13 +7,14 @@ import { VehicleResolver } from './resolvers/vehicle.resolver';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
 import { PubSub } from 'graphql-subscriptions';
-import { Resolvers } from './resolvers';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthService } from './service/auth.service';
 import { entityList } from '@app/entity/entities';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { UserService } from './service/user.service';
+import { GatewayModule } from 'apps/gateway/src/gateway.module';
+import { GQL_SERVICES } from 'apps/gateway/src/services';
+import { Services } from './service';
+import { jwtStrategy } from './Auth/jwt.strategy';
 
 @Module({
   imports: [
@@ -39,6 +41,7 @@ import { UserService } from './service/user.service';
         }
       },
     }),
+    GatewayModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService], //configServer 쓰겠다
@@ -57,7 +60,7 @@ import { UserService } from './service/user.service';
     }),
     JwtModule.register({
       global: true,
-      secret: '12',
+      secret: 'serert',
       signOptions: { expiresIn: '60s' },
     }),
 
@@ -71,12 +74,20 @@ import { UserService } from './service/user.service';
         },
       }),
     }),
+
     ConfigModule.forRoot({
       envFilePath: '.env', // .env 파일의 경로를 지정합니다.
       isGlobal: true, // 전역적으로 사용할 수 있도록 설정합니다.
     }),
-    PassportModule,
+    PassportModule.register({ defaultStrategy: 'bearer' }),
   ],
-  providers: [ApiService, ...Resolvers, PubSub, AuthService, UserService],
+  providers: [
+    jwtStrategy,
+    ApiService,
+    VehicleResolver,
+    PubSub,
+    ...Services,
+    ...GQL_SERVICES,
+  ],
 })
 export class ApiModule {}
