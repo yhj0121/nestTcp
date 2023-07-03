@@ -5,17 +5,17 @@ export const Services = [
   GatewayService,
   RedisService,
   {
-    provide: GatewayService.PORT,
+    provide: GatewayService.portNUmber,
     inject: [ConfigService],
     useFactory: async (configservice: ConfigService) => {
-      return configservice.get('port');
+      return configservice.get<number>('port') as number;
     },
   },
   {
     provide: RedisService.TIME_EXPIRE,
     inject: [ConfigService],
     userFactory: async (configservice: ConfigService) => {
-      return configservice.get('TIME_EXPIRE');
+      return configservice.get('TIME_EXPIRE') as number;
     },
   },
 ];

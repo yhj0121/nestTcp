@@ -4,9 +4,15 @@ import { ApiService } from './api.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { VehicleResolver } from './resolvers/vehicle.resolver';
 import { RedisModule } from '@nestjs-modules/ioredis';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
 import { PubSub } from 'graphql-subscriptions';
 import { Resolvers } from './resolvers';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthService } from './service/auth.service';
+import { entityList } from '@app/entity/entities';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { UserService } from './service/user.service';
 
 @Module({
   imports: [
@@ -16,6 +22,9 @@ import { Resolvers } from './resolvers';
       autoSchemaFile: __dirname + 'schema.gpl', //자동으로 스키마 파일 생성
       subscriptions: {
         // 'graphql-ws': true,
+        // 'subscriptions-transport-ws': {
+        //   path: '/graphql',
+        // },
         'subscriptions-transport-ws': true,
       },
       path: 'app/graphql',
@@ -30,6 +39,28 @@ import { Resolvers } from './resolvers';
         }
       },
     }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService], //configServer 쓰겠다
+      //useFactory : 프로바이더가 동작할 방식을 결정한다.
+      useFactory: (configService: ConfigService) => ({
+        type: 'postgres',
+        host: configService.get('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get('DB_USERNAME'),
+        password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_DATABASE'),
+        schema: configService.get('DB_SCHEMA'),
+        entities: entityList,
+        synchronize: false, //query 할때마다 로그 띄워줌
+      }),
+    }),
+    JwtModule.register({
+      global: true,
+      secret: '12',
+      signOptions: { expiresIn: '60s' },
+    }),
+
     RedisModule.forRootAsync({
       imports: [ConfigModule], // ConfigModule import
       inject: [ConfigService], // ConfigService 주입
@@ -44,7 +75,8 @@ import { Resolvers } from './resolvers';
       envFilePath: '.env', // .env 파일의 경로를 지정합니다.
       isGlobal: true, // 전역적으로 사용할 수 있도록 설정합니다.
     }),
+    PassportModule,
   ],
-  providers: [ApiService, ...Resolvers, PubSub],
+  providers: [ApiService, ...Resolvers, PubSub, AuthService, UserService],
 })
 export class ApiModule {}

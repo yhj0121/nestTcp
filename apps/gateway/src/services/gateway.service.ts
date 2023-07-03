@@ -1,5 +1,5 @@
 import { RedisService } from './redis.service';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as net from 'net';
 import { Root } from 'protobufjs';
@@ -8,10 +8,12 @@ import { MsgInVehicleData } from '../../proto/MSG_VehicleMonitoring';
 export class GatewayService {
   private server: net.Server;
   private protobufRoot: Root;
-
+  static portNUmber = `${GatewayService.name}.PORT`;
   constructor(
     private configService: ConfigService,
     private redisService: RedisService,
+    @Inject(GatewayService.portNUmber)
+    private port: number,
   ) {
     this.server = net
       .createServer((socket: net.Socket) => {
@@ -29,7 +31,7 @@ export class GatewayService {
           console.log('socket end');
         });
       })
-      .listen(this.configService.get('port'), () => {
+      .listen(port, () => {
         console.log('server start');
       });
   }

@@ -1,13 +1,16 @@
 import { ConfigService } from '@nestjs/config';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
+import { Vehicle } from 'apps/api/src/dto/Vehicle.dto';
 
 @Injectable()
 export class RedisService {
-  static TIME_EXPIRE = `${}`
+  static TIME_EXPIRE = `TIme_expire`;
   constructor(
     @InjectRedis() private readonly redis: Redis,
     private readonly configService: ConfigService,
+    @Inject(RedisService.TIME_EXPIRE)
+    private readonly TIME_EXPIRE: number,
   ) {}
 
   async setCache(data) {
@@ -16,7 +19,7 @@ export class RedisService {
       data.operationMode,
       JSON.stringify(data),
       'EX',
-      this.configService.get('TIME_EXPIRE'),
+      this.TIME_EXPIRE,
     );
   }
 
@@ -27,7 +30,16 @@ export class RedisService {
   //     this.redis.del(redisKey);
   //   }
   // }
-  async getCache(id: string) {
-    return await this.redis.get(id);
+  async getCache(id: string): Promise<string> {
+    return this.redis.get(id);
+  }
+
+  async getAllCache(): Promise<string[]> {
+    const totalKey = await this.redis.keys('*');
+    return await this.redis.mget(totalKey);
+  }
+
+  async deleteSubCache() {
+    return await this.redis.del();
   }
 }
