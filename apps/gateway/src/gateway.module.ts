@@ -12,10 +12,10 @@ import { GQL_SERVICES } from './services';
     RedisModule.forRootAsync({
       imports: [ConfigModule], // ConfigModule import
       inject: [ConfigService], // ConfigService 주입
-      useFactory: (configService: ConfigService) => ({
+      useFactory: async (configService: ConfigService) => ({
         config: {
           host: configService.get('REDIS_HOST'),
-          port: configService.get('REDIS_PORT'),
+          port: +configService.get('REDIS_PORT'),
         },
       }),
     }),
@@ -25,6 +25,6 @@ import { GQL_SERVICES } from './services';
     }),
   ],
   providers: [...GQL_SERVICES],
-  exports: [GatewayModule],
+  exports: [GatewayModule, ...GQL_SERVICES],
 })
 export class GatewayModule {}

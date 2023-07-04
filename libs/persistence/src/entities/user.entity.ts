@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @ObjectType()
 @Entity()
-export class Users {
+export class User {
   @PrimaryColumn()
   id: number;
 
