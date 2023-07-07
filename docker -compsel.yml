@@ -1,0 +1,14 @@
+services:
+  PostgreSQL03:
+    image: postgres:latest
+    restart: always
+    port:
+      - '5435:5432'
+    environment:
+      - POSTGRES_USER: postgers
+      - POSTGRES_PASSWORD: asdfzcxv12
+  redistest:
+    image: redis:latest
+    restart: always
+    port:
+      - '6378:6379'

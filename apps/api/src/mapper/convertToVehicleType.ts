@@ -8,6 +8,7 @@ import {
   vehicleTypeEnum,
 } from '../dto/Vehicle.dto';
 
+import * as crypto from 'crypto';
 export function convertToVehicleType(vehicleType: any): Vehicle {
   return {
     operationMode: operationModeEnum[vehicleType.operationMode],

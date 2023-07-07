@@ -10,15 +10,15 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async getEmailAddress(userid): Promise<any> {
+  async getEmailAddress(userid): Promise<string> {
     try {
-      const email = this.userRepository.findOne({
+      const emails = await this.userRepository.findOne({
         where: {
           id: userid,
         },
       });
-      if (email) {
-        return email; //dto에 맞춘다음 변환
+      if (emails) {
+        return emails.email; //dto에 맞춘다음 변환
       }
     } catch (e) {
       throw new Error('에러 발생');

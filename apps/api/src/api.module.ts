@@ -15,6 +15,7 @@ import { GatewayModule } from 'apps/gateway/src/gateway.module';
 import { GQL_SERVICES } from 'apps/gateway/src/services';
 import { Services } from './service';
 import { jwtStrategy } from './Auth/jwt.strategy';
+import { AuthResolver } from './resolvers/auth.resolver';
 
 @Module({
   imports: [
@@ -93,6 +94,7 @@ import { jwtStrategy } from './Auth/jwt.strategy';
     PubSub,
     ...Services,
     ...GQL_SERVICES,
+    AuthResolver,
   ],
 })
 export class ApiModule {}

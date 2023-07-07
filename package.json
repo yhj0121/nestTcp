@@ -14,6 +14,8 @@
     "start:prod": "node dist/apps/live_cache/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
+    "proto:generate": "protoc --ts_proto_out=. ./src/proto/MSG_VehicleMonitoring.proto --ts_proto_opt=esModuleInterop=true",
+    "proto:watch": "chokidar \"**/*.proto\" -c \"npm run proto:generate\"",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
