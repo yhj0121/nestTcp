@@ -2,12 +2,19 @@
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
 name: nest CI TEST # ? workspace name
+defaults: // 3
+  run:
+    working-directory: ./hello-typeorm
 
 on:
   push:
-    branches: ['main']
+    branches: ['main'] # ? 이벤트 발생시 workflow가 실행댐
   pull_request:
     branches: ['main']
+  
+defaults:
+  run:
+    working-directory: ./hello-typeorm
 
 jobs:
   build:

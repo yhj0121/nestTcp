@@ -24,8 +24,12 @@
       }
     ],
     "paths": {
-      "@app/entity": ["libs/persistence/src"],
-      "@app/entity/*": ["libs/persistence/src/*"]
+      "@app/entity": [
+        "libs/persistence/src"
+      ],
+      "@app/entity/*": [
+        "libs/persistence/src/*"
+      ]
     }
   }
 }
