@@ -16,6 +16,7 @@ import { GQL_SERVICES } from 'apps/gateway/src/services';
 import { Services } from './service';
 import { jwtStrategy } from './Auth/jwt.strategy';
 import { AuthResolver } from './resolvers/auth.resolver';
+import { UdpService } from '../../gateway/src/services/udp.service';
 
 @Module({
   imports: [
@@ -87,14 +88,6 @@ import { AuthResolver } from './resolvers/auth.resolver';
     PassportModule.register({ defaultStrategy: 'bearer' }),
     TypeOrmModule.forFeature(entityList), // User 엔티티를 등록
   ],
-  providers: [
-    jwtStrategy,
-    ApiService,
-    VehicleResolver,
-    PubSub,
-    ...Services,
-    ...GQL_SERVICES,
-    AuthResolver,
-  ],
+  providers: [jwtStrategy, ApiService, VehicleResolver, PubSub, ...Services, ...GQL_SERVICES, AuthResolver, UdpService],
 })
 export class ApiModule {}

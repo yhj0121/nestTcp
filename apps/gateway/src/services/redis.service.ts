@@ -10,17 +10,12 @@ export class RedisService {
     @InjectRedis() private readonly redis: Redis,
     private readonly configService: ConfigService,
     @Inject(RedisService.TIME_EXPIRE)
-    private readonly TIME_EXPIRE: number,
+    private readonly TIME_EXPIRE: number
   ) {}
 
   async setCache(data) {
     // this.isCache(data);
-    return await this.redis.set(
-      data.operationMode,
-      JSON.stringify(data),
-      'EX',
-      this.TIME_EXPIRE,
-    );
+    return await this.redis.set(data.operationMode, JSON.stringify(data), 'EX', this.TIME_EXPIRE);
   }
 
   // async isCache(data) {

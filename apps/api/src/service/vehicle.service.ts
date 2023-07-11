@@ -9,7 +9,7 @@ const EXPIRE_TIME_SEC = 60;
 export class VehicleService {
   constructor(
     @InjectRedis()
-    private readonly redis: Redis,
+    private readonly redis: Redis
   ) {}
 
   async searchCacheDatas(payload?: string) {
@@ -17,11 +17,6 @@ export class VehicleService {
   }
 
   async addCacheData(payload) {
-    const setCacheData = this.redis.set(
-      payload.id,
-      JSON.stringify(payload),
-      'EX',
-      EXPIRE_TIME_SEC,
-    );
+    const setCacheData = this.redis.set(payload.id, JSON.stringify(payload), 'EX', EXPIRE_TIME_SEC);
   }
 }

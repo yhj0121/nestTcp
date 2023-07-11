@@ -9,10 +9,7 @@ export class GatewayService {
   private server: net.Server;
   private protobufRoot: Root;
 
-  constructor(
-    private configService: ConfigService,
-    private redisService: RedisService,
-  ) {
+  constructor(private configService: ConfigService, private redisService: RedisService) {
     this.server = net
       .createServer((socket: net.Socket) => {
         //client에서 데이터가 들어올때 하는거
