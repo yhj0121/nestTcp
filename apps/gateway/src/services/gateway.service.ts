@@ -8,19 +8,17 @@ import { MsgInVehicleData } from '../../proto/MSG_VehicleMonitoring';
 export class GatewayService {
   private server: net.Server;
   private protobufRoot: Root;
-  static SESSION_EXPIRED_IN_MINUTE = `${GatewayService.name}).SESSION_EXPIRED_IN_MINUTE`;
 
   constructor(
     private configService: ConfigService,
     private redisService: RedisService,
-    @Inject(GatewayService.SESSION_EXPIRED_IN_MINUTE)
-    private port: number,
   ) {
     this.server = net
       .createServer((socket: net.Socket) => {
+        //client에서 데이터가 들어올때 하는거
         socket.on('data', (data: Buffer) => {
           const decodeBuf = MsgInVehicleData.decode(data);
-          console.log(decodeBuf);
+          console.log(decodeBuf, 'ds');
           this.redisService.setCache(decodeBuf);
         });
 
@@ -32,7 +30,7 @@ export class GatewayService {
           console.log('socket end');
         });
       })
-      .listen(this.port, () => {
+      .listen(configService.get<number>('PORT'), () => {
         console.log('server start');
       });
   }
