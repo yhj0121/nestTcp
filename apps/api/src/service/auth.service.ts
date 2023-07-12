@@ -5,7 +5,7 @@ import { Repository, DataSource, QueryRunner } from 'typeorm';
 
 @Injectable()
 export class AuthService {
-  constructor(private dataSource: DataSource, private userRepo: User) {}
+  constructor(private dataSource: DataSource) {}
   async validateUser(token: string, payload) {
     if (!payload.userId) {
       throw new Error('payload userId Invaild');
