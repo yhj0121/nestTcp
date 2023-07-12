@@ -32,4 +32,4 @@ jobs:
           node-version: '16'
       - run: yarn install
       - run: yarn test
-      - run: yarn run build
+      - run: yarn start api
