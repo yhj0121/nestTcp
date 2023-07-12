@@ -1,20 +1,19 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: nest CI TEST # ? workspace name
-
+name: gateway CI TEST # ? workspace name
 
 on:
   push:
     branches: ['main'] # ? 이벤트 발생시 workflow가 실행댐
   pull_request:
     branches: ['main']
-  
-defaults: // 3
-  run:
-   working-directory: ./LIVE_SERVER_CACHE  # ? 실행위치
 
-jobs:
+defaults:
+  run:
+    working-directory: ./LIVE_SERVER_CACHE # ? 실행위치
+
+jobs: # ? 작업이 이루어 지는곳
   build:
     runs-on: ubuntu-latest
 
@@ -23,8 +22,8 @@ jobs:
         node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-      - uses: actions/checkout@v3
+    steps: # 실행할 스크립트 명령어 액션등을 정의 하는곳
+      - uses: actions/checkout@v3 # 코드 내려받고 사용하는곳 소유자/저장소명@참조자 형식
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
