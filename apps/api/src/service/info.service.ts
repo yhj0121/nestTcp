@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateInfoInput } from '../dto/create-info.input';
-import { UpdateInfoInput } from '../dto/update-info.input';
 
 @Injectable()
 export class InfoService {
-  create(createInfoInput: CreateInfoInput) {
+  create(createInfoInput) {
     return 'This action adds a new info';
   }
 
@@ -16,7 +14,7 @@ export class InfoService {
     return `This action returns a #${id} info`;
   }
 
-  update(id: number, updateInfoInput: UpdateInfoInput) {
+  update(id: number, updateInfoInput) {
     return `This action updates a #${id} info`;
   }
 
