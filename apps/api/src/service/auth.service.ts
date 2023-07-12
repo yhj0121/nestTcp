@@ -13,22 +13,22 @@ export class AuthService {
     if (!token) {
       throw new Error('token not valid'); //여기는 token 하고 다른데에 저장된 token 하고 비교하는 부분
     }
-    const QueryRunner = this.dataSource.createQueryRunner();
-    await QueryRunner.connect();
+    // const QueryRunner = this.dataSource.createQueryRunner();
+    // await QueryRunner.connect();
 
-    await QueryRunner.startTransaction();
+    // await QueryRunner.startTransaction();
 
-    try {
-      await QueryRunner.manager.save(User, { id: 1 });
-      await QueryRunner.manager.save(User, { id: 2 });
+    // try {
+    //   await QueryRunner.manager.save(User, { id: 1 });
+    //   await QueryRunner.manager.save(User, { id: 2 });
 
-      await QueryRunner.commitTransaction();
-    } catch (e) {
-      QueryRunner && (await QueryRunner.rollbackTransaction());
+    //   await QueryRunner.commitTransaction();
+    // } catch (e) {
+    //   QueryRunner && (await QueryRunner.rollbackTransaction());
 
-      throw e;
-    } finally {
-      QueryRunner && (await QueryRunner.release());
-    }
+    //   throw e;
+    // } finally {
+    //   QueryRunner && (await QueryRunner.release());
+    // }
   }
 }
