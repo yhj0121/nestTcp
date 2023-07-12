@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { RedisModule } from '@nestjs-modules/ioredis';
 
 import { GatewayService } from './services/gateway.service';
