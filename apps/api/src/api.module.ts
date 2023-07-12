@@ -15,6 +15,8 @@ import { GatewayModule } from 'apps/gateway/src/gateway.module';
 import { GQL_SERVICES } from 'apps/gateway/src/services';
 import { Services } from './service';
 import { jwtStrategy } from './Auth/jwt.strategy';
+import { AuthResolver } from './resolvers/auth.resolver';
+import { UdpService } from '../../gateway/src/services/udp.service';
 
 @Module({
   imports: [
@@ -54,23 +56,27 @@ import { jwtStrategy } from './Auth/jwt.strategy';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         schema: configService.get('DB_SCHEMA'),
-        entities: entityList,
+        entities: entityList, // entityList를 설정합니다.
         synchronize: false, //query 할때마다 로그 띄워줌
       }),
     }),
-    JwtModule.register({
-      global: true,
-      secret: 'serert',
-      signOptions: { expiresIn: '60s' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configservice: ConfigService) => ({
+        global: true,
+        secret: configservice.get('JWT_SECRET'),
+        signOptions: { expiresIn: '60s' },
+      }),
     }),
 
     RedisModule.forRootAsync({
       imports: [ConfigModule], // ConfigModule import
       inject: [ConfigService], // ConfigService 주입
-      useFactory: (configService: ConfigService) => ({
+      useFactory: async (configService: ConfigService) => ({
         config: {
           host: configService.get('REDIS_HOST'),
-          port: configService.get('REDIS_PORT'),
+          port: +configService.get('REDIS_PORT'),
         },
       }),
     }),
@@ -80,14 +86,8 @@ import { jwtStrategy } from './Auth/jwt.strategy';
       isGlobal: true, // 전역적으로 사용할 수 있도록 설정합니다.
     }),
     PassportModule.register({ defaultStrategy: 'bearer' }),
+    TypeOrmModule.forFeature(entityList), // User 엔티티를 등록
   ],
-  providers: [
-    jwtStrategy,
-    ApiService,
-    VehicleResolver,
-    PubSub,
-    ...Services,
-    ...GQL_SERVICES,
-  ],
+  providers: [jwtStrategy, ApiService, VehicleResolver, PubSub, ...Services, ...GQL_SERVICES, AuthResolver, UdpService],
 })
 export class ApiModule {}

@@ -1,7 +1,7 @@
 import { userDto } from './../dto/user.dto';
-import { Users } from '@app/entity/entities/user.entity';
+import { User } from '@app/entity/entities/user.entity';
 
-export function convertToVehicleType(users: Users): userDto {
+export function convertToVehicleType(users: User): userDto {
   return {
     userId: users.userId,
     password: users.password,

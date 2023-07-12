@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
 
 @ObjectType()
 @Entity()
-export class Users {
+export class User {
   @PrimaryColumn()
   id: number;
 
@@ -20,7 +20,10 @@ export class Users {
   address: string;
 
   @Column()
-  password: string;
+  salt: string;
+
+  @Column()
+  hash: string;
 
   @CreateDateColumn()
   created_at: string;

@@ -1,8 +1,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "declaration": true, //d.ts 파일 ㅅ  ㅐ성
-    "outDir": "../../dist/libs/entity"
+    "declaration": false,
+    "outDir": "../../dist/apps/mailing"
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
