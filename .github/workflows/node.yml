@@ -9,9 +9,9 @@ on:
   pull_request:
     branches: ['main']
 
-defaults: #  3
-  run:
-    working-directory: ./LIVE_SERVER_CACHE # ? 실행위치
+# defaults: #  3
+#run:
+# working-directory: ./LIVE_SERVER_CACHE # ? 실행위치
 
 jobs:
   build:
