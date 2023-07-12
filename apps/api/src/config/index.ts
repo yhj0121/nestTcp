@@ -14,7 +14,11 @@ export const initConfigModules = () => {
     ConfigModule.forRoot({
       envFilePath: '.env',
       validationSchema: Joi.object({
-        port: Joi.number().integer().required(),
+        REDIS_PORT: Joi.number().integer().required(),
+
+        REDIS_HOST: Joi.string().required,
+
+        PORT: Joi.number().integer().required(),
       }),
       load: [
         registerAs(API_CONF_PROPERTY_PREFIX, () => {
