@@ -20,7 +20,10 @@ export class User {
   address: string;
 
   @Column()
-  password: string;
+  salt: string;
+
+  @Column()
+  hash: string;
 
   @CreateDateColumn()
   created_at: string;

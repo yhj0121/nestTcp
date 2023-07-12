@@ -3,11 +3,8 @@ import { ArgsType, Field, HideField, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class userDto {
   @Field() userId: string;
-
   @HideField() password: string;
-
   @Field() email: string;
-
   @Field() address: string;
 }
 
@@ -23,3 +20,13 @@ export class signupInput {
   @Field() email: string;
   @Field() address: string;
 }
+
+@ArgsType()
+export class loginInput {
+  @Field() userId: string;
+  @Field() password: string;
+}
+export type cryptoInput = {
+  salt: number;
+  hash: string;
+};
