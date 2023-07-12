@@ -36,6 +36,10 @@ export class UserService {
     const withoutPassword = { ...without };
 
     const salt = crypto.randomBytes(this.SALTTYPE.salt);
-    const hash = crypto.pbkdf2(password, salt.toString('base64'), 100, 64, 'sha512');
+    const hash = crypto.pbkdf2Sync(password, salt.toString('base64'), 100, 64, 'sha512').toString('base64');
+  }
+
+  async changePassword(password: string) {
+    //인증 수단 필요
   }
 }

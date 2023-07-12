@@ -16,7 +16,6 @@ module.exports = {
   rules: {
     'no-console': 'warn',
     'no-undef': 'off',
-    'no-unused-vars': 'off',
 
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
