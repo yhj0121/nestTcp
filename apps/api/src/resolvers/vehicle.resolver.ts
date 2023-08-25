@@ -13,12 +13,10 @@ export class VehicleResolver {
   constructor(
     private pubsub: PubSub,
     @InjectRedis() private readonly redis: Redis,
-    private readonly redisService: RedisService,
+    private readonly redisService: RedisService
   ) {
     setInterval(async () => {
-      const redisData: Vehicle = convertToVehicleType(
-        JSON.parse(await redisService.getCache('1')),
-      );
+      const redisData: Vehicle = convertToVehicleType(JSON.parse(await redisService.getCache('1')));
       this.pubsub.publish('getVehicle', {
         getVehicle: redisData,
       });
@@ -30,10 +28,8 @@ export class VehicleResolver {
       return payload.operationMode === variable.mode; //variable 인자 payload publish 할떄 들어가는 값
     },
   })
-  async getVehicle(variable: {
-    name: string;
-  }): Promise<AsyncIterator<Vehicle>> {
-    if (variable) return this.pubsub.asyncIterator('getVehicle');
+  async getVehicle(variable: { name: string }): Promise<AsyncIterator<Vehicle>> {
+    if (variable) return this.pubsub.asyncIterator('getVehicle'); //비동기 반복 프로세스 done value를 반환
     else return this.pubsub.asyncIterator('getAllVehicle');
   }
 

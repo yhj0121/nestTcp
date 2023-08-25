@@ -4,22 +4,21 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource, QueryRunner } from 'typeorm';
 import * as crypto from 'crypto';
-import { AuthenticationError } from '@nestjs/apollo';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
   constructor(
-    private dataSource: DataSource,
     @InjectRepository(User)
-    private userRepository: Repository<User>,
-    private readonly logger = new Logger(AuthService.name)
+    private userRepository: Repository<User>
   ) {}
+
   async validateUser(token: string, payload) {
     if (!payload.userId) {
-      throw new Error('payload userId Invaild');
+      throw new Error('payload userId Invalid');
     }
     if (!token) {
-      throw new Error('token not valid'); //여기는 token 하고 다른데에 저장된 token 하고 비교하는 부분
+      throw new Error('token not valid');
     }
   }
 
@@ -28,12 +27,16 @@ export class AuthService {
     const userInfo = await this.userRepository.findOne({
       where: { userId },
     });
+
+    if (!userInfo) {
+      throw new Error('User not found'); // 유저가 존재하지 않을 때 처리 필요
+    }
+
     const { salt, hash } = userInfo;
 
     const hashPassword = crypto.pbkdf2Sync(password, salt, 100, 64, 'sha512').toString('base64');
     if (hash !== hashPassword) {
-      this.logger.error(`password not invalid ${password}`);
-      throw new AuthenticationError('password not valide ');
+      this.logger.error(`password not invalidss ${password}`);
     }
   }
 }

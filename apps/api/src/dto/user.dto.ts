@@ -3,7 +3,8 @@ import { ArgsType, Field, HideField, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class userDto {
   @Field() userId: string;
-  @HideField() password: string;
+  @HideField() hash: string;
+  @HideField() salt: string;
   @Field() email: string;
   @Field() address: string;
 }
