@@ -55,4 +55,11 @@ module.exports = {
     "max-len": [2, 200, 4, { "ignoreUrls": true }] // 한줄의 최대 길이
  */
   },
+  'prettier/prettier': [
+    'error',
+    {
+      singleQuote: true,
+      trailingComma: 'all',
+    },
+  ],
 };
