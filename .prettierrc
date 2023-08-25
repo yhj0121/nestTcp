@@ -2,16 +2,11 @@
   "useTabs": false,
   "tabWidth": 2,
   "singleQuote": true,
-<<<<<<< HEAD
-  "trailingComma": "all"
-=======
+  "trailingComma": "all",
   "printWidth": 120,
-<<<<<<< HEAD
   "trailingComma": "es5",
   "eslintIntegration": true,
-  "semi": true
-=======
+  "semi": true,
   "trailingComma": "es5"
->>>>>>> 17584005f269763197675184cff78be379961498
->>>>>>> origin/main
+
 }
