@@ -3,5 +3,7 @@
   "tabWidth": 2,
   "singleQuote": true,
   "printWidth": 120,
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+  "eslintIntegration": true,
+  "semi": true
 }
