@@ -3,17 +3,17 @@ import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 import { VehicleService } from './vehicle.service';
 
-export const services = [
+export const Services = [
   AuthService,
   VehicleService,
   UserService,
   {
     provide: UserService.SALTTYPE,
     inject: [ConfigService],
-    useFactory: async (configService: ConfigService) => {
+    useFactory: async (cofnigservice: ConfigService) => {
       return {
-        salt: configService.get('HASH_SALT') as number,
-        type: configService.get('HASH_TYPE') as string,
+        salt: cofnigservice.get('HASH_SALT') as number,
+        type: cofnigservice.get('HASH_TYPE'),
       };
     },
   },
